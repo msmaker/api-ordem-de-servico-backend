@@ -2,20 +2,32 @@ package com.msmaker.os.domain;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import org.hibernate.validator.constraints.br.CPF;
+
+@Entity
 public abstract class Pessoa {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
-	private String cpsf;
+	
+	@CPF
+	private String cpf;
 	private String telefone;
 
 	public Pessoa() {
 	}
 
-	public Pessoa(Integer id, String nome, String cpsf, String telefone) {
+	public Pessoa(Integer id, String nome, String cpf, String telefone) {
 		this.id = id;
 		this.nome = nome;
-		this.cpsf = cpsf;
+		this.cpf = cpf;
 		this.telefone = telefone;
 	}
 
@@ -35,12 +47,12 @@ public abstract class Pessoa {
 		this.nome = nome;
 	}
 
-	public String getCpsf() {
-		return cpsf;
+	public String getcpf() {
+		return cpf;
 	}
 
-	public void setCpsf(String cpsf) {
-		this.cpsf = cpsf;
+	public void setcpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 	public String getTelefone() {
@@ -53,7 +65,7 @@ public abstract class Pessoa {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(cpsf, id);
+		return Objects.hash(cpf, id);
 	}
 
 	@Override
@@ -65,7 +77,7 @@ public abstract class Pessoa {
 		if (getClass() != obj.getClass())
 			return false;
 		Pessoa other = (Pessoa) obj;
-		return Objects.equals(cpsf, other.cpsf) && Objects.equals(id, other.id);
+		return Objects.equals(cpf, other.cpf) && Objects.equals(id, other.id);
 	}
 
 	

@@ -3,28 +3,50 @@ package com.msmaker.os.domain;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.msmaker.os.domain.euns.Prioridade;
 import com.msmaker.os.domain.euns.Status;
 
+@Entity
 public class OS {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
+	@JsonFormat(pattern = "dd/MM/yyy HH:mm")
 	private LocalDateTime dataAbertura;
+
+	@JsonFormat(pattern = "dd/MM/yyy HH:mm")
 	private LocalDateTime dataFechamento;
 	private Integer prioridade;
 	private String observacoes;
 	private Integer status;
+
+	@ManyToOne
+	@JoinColumn(name = "tecnico_id")
 	private Tecnico tecnico;
+
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 
 	public OS() {
+		this.setDataAbertura(LocalDateTime.now());
+		this.setPrioridade(Prioridade.BAIXA);
+		this.setStatus(Status.ABERTO);
 	}
 
-	public OS(Integer id, LocalDateTime dataAbertura, LocalDateTime dataFechamento, Prioridade prioridade,
-			String observacoes, Status status, Tecnico tecnico, Cliente cliente) {
+	public OS(Integer id, Prioridade prioridade, String observacoes, Status status, Tecnico tecnico, Cliente cliente) {
 		this.id = id;
-		this.dataAbertura = dataAbertura;
-		this.dataFechamento = dataFechamento;
+		this.setDataAbertura(LocalDateTime.now());
 		this.prioridade = (prioridade == null) ? 0 : prioridade.getCod();
 		this.observacoes = observacoes;
 		this.status = (status == null) ? 0 : prioridade.getCod();
