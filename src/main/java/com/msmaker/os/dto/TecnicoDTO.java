@@ -23,8 +23,8 @@ public class TecnicoDTO implements Serializable {
 		super();
 		this.id = obj.getId();
 		this.nome = obj.getNome();
-		this.cpf = obj.getcpf();
-		this.telefone = obj.getcpf();
+		this.cpf = obj.getCpf();
+		this.telefone = obj.getTelefone();
 	}
 
 	public Integer getId() {
