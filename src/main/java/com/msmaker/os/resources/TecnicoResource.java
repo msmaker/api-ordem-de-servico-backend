@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.msmaker.os.domain.Tecnico;
+import com.msmaker.os.dto.TecnicoDTO;
 import com.msmaker.os.service.TecnicoService;
 
 @RestController
@@ -16,11 +17,11 @@ public class TecnicoResource {
 
 	@Autowired
 	private TecnicoService service;
-	
+
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Tecnico> findById(@PathVariable Integer id) {
-		Tecnico obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
+	public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id) {
+		TecnicoDTO objDTO = new TecnicoDTO(service.findById(id));
+		return ResponseEntity.ok().body(objDTO);
 
 	}
 
